@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VayuDrishti | Home</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    scroll-behavior: smooth;
+  }
+
+  /* NAVBAR */
+  nav {
+    background: rgb(1, 1, 16);
+    color: white;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  /* LOGO BORDER ANIMATION */
+  .logo-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .logo-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+  }
+
+  .logo-wrapper:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .logo-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: floatProfile 4s ease-in-out infinite;
+    display: block;
+    box-shadow:
+        0 0 0 2px rgba(51, 255, 0, 0.6),
+        0 0 8px rgba(51, 255, 0, 0.7);
+  }
+
+  .nav-left h2 {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(227, 215, 240);
+  }
+
+  .nav-right button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 15px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  .nav-right button.admin {
+    background: #00e676;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    background: linear-gradient(135deg, #0b1d26, #203a43);
+    color: white;
+    padding: 100px 60px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
+    opacity: 0.9;
+  }
+
+  /* ABOUT SECTION */
+  .section {
+    padding: 70px 60px;
+    background: white;
+  }
+
+  .section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+  }
+
+  .section p {
+    max-width: 900px;
+    margin: auto;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* Team Layout */
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* =================================================
+   FINAL TEAM SECTION – HIGH VISIBILITY + OSUM FX
+   ================================================= */
+
+/* Card Base – Dark Glass */
+.team-card {
+    position: relative;
+    width: 440px;
+    padding: 30px;
+    border-radius: 22px;
+    background: linear-gradient(
+        135deg,
+        rgba(5, 5, 5, 0.92),
+        rgba(15, 35, 15, 0.92)
+    ) !important;
+    color: #ffffff;
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(51, 255, 0, 0.3);
+    box-shadow: 0 0 30px rgba(51, 255, 0, 0.25);
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+/* Neon Animated Border */
+.team-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        120deg,
+        black,
+        
+
+    );
+    background-size: 300% 300%;
+    animation: neonMove 6s linear infinite;
+    z-index: -1;
+    opacity: 0.85;
+}
+
+@keyframes neonMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hover – 3D Tilt + Glow */
+.team-card:hover {
+    transform: perspective(1000px)
+        rotateX(6deg)
+        rotateY(-6deg)
+        translateY(-16px)
+        scale(1.03);
+    box-shadow:
+        0 0 35px rgba(51, 255, 0, 0.8),
+        0 0 80px rgba(51, 255, 0, 0.4);
+}
+
+/* Profile Image */
+.team-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px red;
+    margin-bottom: 15px;
+    animation: floatProfile 4s ease-in-out infinite;
+    box-shadow:
+        0 0 0 4px rgba(51, 255, 0, 0.6),
+        0 0 20px rgba(51, 255, 0, 0.7);
+}
+
+@keyframes floatProfile {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+
+/* Name */
+.team-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+/* Role */
+.team-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 14px;
+    color: #33ff00;
+}
+
+/* Text */
+.team-card p {
+    font-size: 14px;
+    margin: 6px 0;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* Links */
+.team-card a {
+    color: yellowgreen !important;
+    font-weight: 600;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+/* Slide Animations */
+.slide-left {
+    animation: slideFromLeft 1.2s ease forwards;
+}
+
+.slide-right {
+    animation: slideFromRight 1.2s ease forwards;
+}
+
+@keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(-80px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(80px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Mobile Safe */
+@media (max-width: 768px) {
+    .team-card:hover {
+        transform: translateY(-10px);
+    }
+}
+
+/* Copyright */
+.copyright {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .team-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+    }
+}
+  footer {
+    background: #0b1d26;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    opacity: 1;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-left">
+    <div class="logo-wrapper">
+      <img src="../Assests/logo2.png" alt="VayuDrishti Logo">
+    </div>
+    <h2>VayuDrishti</h2>
+  </div>
+
+  <div class="nav-right">
+    <button onclick="scrollToAbout()">About</button>
+    <button onclick="scrollToTeam()">Team</button>
+    <button class="admin" onclick="location.href='login.html'">Admin</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>AI for Cleaner Cities</h1>
+  <p>
+    VayuDrishti is a Pathway-powered real-time AI system that autonomously
+    reduces urban air pollution by optimizing traffic signals using live
+    traffic and AQI data.
+  </p>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <h2>About VayuDrishti</h2>
+  <p>
+    VayuDrishti focuses on reducing pollution at traffic intersections where
+    vehicle idling causes maximum emissions. Using real-time data streams,
+    the system continuously recalculates pollution cost and dynamically
+    adjusts signal timings to minimize emissions — not just congestion.
+  </p>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+
+    <h2 class="footer-title">Meet Our Team</h2>
+<!-- TEAM -->
+<div class="team-container">
+
+        <!-- Team Member 1 -->
+        <div class="team-card slide-left">
+            <img src="../Assests/aradhya.jpeg" alt="Team Member 1">
+            <h3>Aradhya Kaul</h3>
+            <h4>Founder & MD</h4>
+            <p>
+                📧 Email: <a href="mailto:aradhyakaul540@gmail.com">aradhyakaul540@gmail.com</a>
+            </p>
+            <p>
+                💻LinkedIn: <a href="https://www.linkedin.com/in/aradhya-kaul-237459386/" target="_blank">https://www.linkedin.com/in/aradhya-kaul-237459386/</a>
+            </p>
+            <p>📱 +91 80910-77622</p>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-card slide-right">
+            <img src="../Assests/rudra.jpeg" alt="Team Member 2">
+            <h3>Rudraksh Raina</h3>
+            <h4>Co-Founder & Developer</h4>
+            <p>
+                📧 Email : <a href="mailto:1819rudraksh@gmail.com">1819rudraksh@gmail.com</a>
+            </p>
+            <p>
+                💻LinkedIn: <a href="www.linkedin.com/in/rudraksh-raina-5a5535363" target="_blank">www.linkedin.com/in/rudraksh-raina-5a5535363</a>
+            </p>
+            <p>📱 +91 84930-36931</p>
+        </div>
+
+    </div>
+<div class="copyright">
+        ©2026 VayuDrishti • Hack For Green Bharat • Powered by Pathway • All Rights Reserved
+</div>
+</footer>
+</body>
+<script>
+  function scrollToTeam() {
+    document.getElementById("team").scrollIntoView();
+  }
+
+  function scrollToAbout() {
+    document.getElementById("about").scrollIntoView();
+  }
+</script>
+
+</body>
+</html>

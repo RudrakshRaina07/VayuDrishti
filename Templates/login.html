@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SANKALP.AI | Home</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 40px;
+      border-radius: 16px;
+      width: 380px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 25px;
+    }
+
+    .info {
+      font-size: 14px;
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #00c853, #64dd17);
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: scale(1.02);
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- LOGO -->
+    <img src="logo.png" alt="SANKALP.AI Logo" class="logo">
+
+    <h1>SANKALP.AI</h1>
+    <p class="tagline">Innovate for a Cleaner Future</p>
+
+    <!-- ACCESS INFO -->
+    <div class="info">
+      🔒 <strong>Restricted Access</strong><br>
+      This system can be accessed only by<br>
+      <b>Authorized Traffic & City Admins</b>
+    </div>
+
+    <!-- LOGIN (SIMULATED) -->
+    <input type="text" placeholder="Admin Username">
+    <input type="password" placeholder="Password">
+
+    <button onclick="login()">Login as Admin</button>
+
+    <div class="footer">
+      Powered by Pathway • Hack For Green Bharat
+    </div>
+
+  </div>
+
+  <script>
+    function login() {
+      // Simulated authentication for demo
+      alert("Admin authenticated successfully!");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+
+</body>
+</html>
