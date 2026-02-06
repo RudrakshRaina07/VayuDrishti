@@ -1,423 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>VayuDrishti | Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VayuDrishti | AI for Cleaner Cities</title>
 
-<style>
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f7fa;
-    scroll-behavior: smooth;
-  }
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  /* NAVBAR */
-  nav {
-    background: rgb(1, 1, 16);
-    color: white;
-    padding: 14px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  /* LOGO BORDER ANIMATION */
-  .logo-wrapper {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    padding: 4px;
-    cursor: pointer;
-  }
-
-  .logo-wrapper::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s ease;
-  }
-
-  .logo-wrapper:hover::before {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .logo-wrapper img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    animation: floatProfile 4s ease-in-out infinite;
-    display: block;
-    box-shadow:
-        0 0 0 2px rgba(51, 255, 0, 0.6),
-        0 0 8px rgba(51, 255, 0, 0.7);
-  }
-
-  .nav-left h2 {
-    margin: 0;
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(227, 215, 240);
-  }
-
-  .nav-right button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 15px;
-    margin-left: 20px;
-    cursor: pointer;
-  }
-
-  .nav-right button.admin {
-    background: #00e676;
-    color: black;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-weight: bold;
-  }
-
-  /* HERO SECTION */
-  .hero {
-    background: linear-gradient(135deg, #0b1d26, #203a43);
-    color: white;
-    padding: 100px 60px;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-size: 44px;
-    margin-bottom: 20px;
-  }
-
-  .hero p {
-    font-size: 18px;
-    max-width: 800px;
-    margin: auto;
-    opacity: 0.9;
-  }
-
-  /* ABOUT SECTION */
-  .section {
-    padding: 70px 60px;
-    background: white;
-  }
-
-  .section h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 32px;
-  }
-
-  .section p {
-    max-width: 900px;
-    margin: auto;
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* Team Layout */
-.team-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-
-/* =================================================
-   FINAL TEAM SECTION – HIGH VISIBILITY + OSUM FX
-   ================================================= */
-
-/* Card Base – Dark Glass */
-.team-card {
-    position: relative;
-    width: 440px;
-    padding: 30px;
-    border-radius: 22px;
-    background: linear-gradient(
-        135deg,
-        rgba(5, 5, 5, 0.92),
-        rgba(15, 35, 15, 0.92)
-    ) !important;
-    color: #ffffff;
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(51, 255, 0, 0.3);
-    box-shadow: 0 0 30px rgba(51, 255, 0, 0.25);
-    transition: all 0.5s ease;
-    transform-style: preserve-3d;
-    overflow: hidden;
-}
-
-/* Neon Animated Border */
-.team-card::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(
-        120deg,
-        black,
-        
-
-    );
-    background-size: 300% 300%;
-    animation: neonMove 6s linear infinite;
-    z-index: -1;
-    opacity: 0.85;
-}
-
-@keyframes neonMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Hover – 3D Tilt + Glow */
-.team-card:hover {
-    transform: perspective(1000px)
-        rotateX(6deg)
-        rotateY(-6deg)
-        translateY(-16px)
-        scale(1.03);
-    box-shadow:
-        0 0 35px rgba(51, 255, 0, 0.8),
-        0 0 80px rgba(51, 255, 0, 0.4);
-}
-
-/* Profile Image */
-.team-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px red;
-    margin-bottom: 15px;
-    animation: floatProfile 4s ease-in-out infinite;
-    box-shadow:
-        0 0 0 4px rgba(51, 255, 0, 0.6),
-        0 0 20px rgba(51, 255, 0, 0.7);
-}
-
-@keyframes floatProfile {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0); }
-}
-
-/* Name */
-.team-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: #ffffff;
-}
-
-/* Role */
-.team-card h4 {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 14px;
-    color: #33ff00;
-}
-
-/* Text */
-.team-card p {
-    font-size: 14px;
-    margin: 6px 0;
-    color: #e0e0e0;
-    line-height: 1.6;
-}
-
-/* Links */
-.team-card a {
-    color: yellowgreen !important;
-    font-weight: 600;
-    text-decoration: none;
-    word-break: break-all;
-}
-
-/* Slide Animations */
-.slide-left {
-    animation: slideFromLeft 1.2s ease forwards;
-}
-
-.slide-right {
-    animation: slideFromRight 1.2s ease forwards;
-}
-
-@keyframes slideFromLeft {
-    from { opacity: 0; transform: translateX(-80px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideFromRight {
-    from { opacity: 0; transform: translateX(80px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Mobile Safe */
-@media (max-width: 768px) {
-    .team-card:hover {
-        transform: translateY(-10px);
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-}
 
-/* Copyright */
-.copyright {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid #222;
-    font-size: 13px;
-    color: #aaa;
-}
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
-/* Responsive */
-@media (max-width: 768px) {
+    /* ================= NAVBAR ================= */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(51,255,0,0.15);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-wrapper img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(51,255,0,0.8);
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .nav-left h2 {
+      font-size: 20px;
+      color: #a3e635;
+      letter-spacing: 1px;
+    }
+
+    .nav-right button {
+      background: transparent;
+      border: none;
+      color: yellowgreen;
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-right button:hover {
+      color: #a3e635;
+    }
+
+    .admin {
+      background: linear-gradient(135deg,#22c55e,#4ade80);
+      color: yellowgreen !important;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(34,197,94,0.6);
+    }
+    .signup {
+      background: linear-gradient(135deg,#22c55e,#4ade80);
+      color: yellowgreen !important;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(34,197,94,0.6);
+    }
+
+
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: radial-gradient(circle at top, #064e3b, #020617 70%);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      color: #bbf7d0;
+      margin-bottom: 20px;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 18px;
+      opacity: 0.85;
+      animation: fadeUp 1.6s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* glowing orb background */
+    .orb {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle,#22c55e55,transparent 70%);
+      filter: blur(60px);
+      animation: floatOrb 10s infinite alternate ease-in-out;
+    }
+
+    .orb:nth-child(1) { top: 10%; left: 5%; }
+    .orb:nth-child(2) { bottom: 5%; right: 10%; animation-delay: 3s; }
+
+    @keyframes floatOrb {
+      from { transform: translateY(0); }
+      to { transform: translateY(-40px); }
+    }
+
+    /* ================= SECTION ================= */
+    .section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 34px;
+      margin-bottom: 20px;
+      color: #a3e635;
+    }
+
+    .section p {
+      line-height: 1.7;
+      opacity: 0.85;
+      margin-bottom: 14px;
+    }
+
+    /* ================= TEAM ================= */
+    #team {
+      padding: 80px 20px 60px;
+    }
+
     .team-container {
-        flex-direction: column;
-        align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .team-card {
+      width: 300px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 20px;
+      padding: 26px;
+      transition: 0.4s;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 20px rgba(34,197,94,0.25);
     }
 
     .team-card:hover {
-        transform: translateY(-10px);
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 0 35px rgba(34,197,94,0.6);
     }
-}
-  footer {
-    background: #0b1d26;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    font-size: 13px;
-    opacity: 1;
-  }
-</style>
+
+    .team-card img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+      box-shadow: 0 0 16px rgba(34,197,94,0.7);
+    }
+
+    .team-card h3 { margin-top: 10px; }
+
+    .team-card h4 {
+      color: #4ade80;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .team-card a {
+      color: #a3e635;
+      text-decoration: none;
+      word-break: break-all;
+      font-size: 13px;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      opacity: 0.6;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+    }
+  </style>
 </head>
 
 <body>
-
-<!-- NAVBAR -->
-<nav>
-  <div class="nav-left">
-    <div class="logo-wrapper">
-      <img src="../Assests/logo2.png" alt="VayuDrishti Logo">
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-left">
+      <div class="logo-wrapper">
+        <img src="{{ url_for('static', filename='assests/logo2.png') }}" alt="VayuDrishti Logo">
+      </div>
+      <h2>VayuDrishti</h2>
     </div>
-    <h2>VayuDrishti</h2>
-  </div>
 
-  <div class="nav-right">
-    <button onclick="scrollToAbout()">About</button>
-    <button onclick="scrollToTeam()">Team</button>
-    <button class="admin" onclick="location.href='login.html'">Admin</button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <h1>AI for Cleaner Cities</h1>
-  <p>
-    VayuDrishti is a Pathway-powered real-time AI system that autonomously
-    reduces urban air pollution by optimizing traffic signals using live
-    traffic and AQI data.
-  </p>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <h2>About VayuDrishti</h2>
-  <p>
-    VayuDrishti focuses on reducing pollution at traffic intersections where
-    vehicle idling causes maximum emissions. Using real-time data streams,
-    the system continuously recalculates pollution cost and dynamically
-    adjusts signal timings to minimize emissions — not just congestion.
-  </p>
-</section>
-
-<section class="section">
-  <h2>How VayuDrishti Works</h2>
-  <p>
-    VayuDrishti operates as a real-time, pollution-aware traffic intelligence system.
-    It continuously ingests live traffic density and air quality data from city intersections
-    using Pathway’s streaming AI framework.
-  </p>
-  <p>
-    For every junction, the system computes a <b>Pollution Cost Score</b> based on
-    vehicle count, idle time, and emission impact. When pollution risk rises,
-    VayuDrishti autonomously adjusts traffic signal timings to reduce idle emissions
-    at the source.
-  </p>
-  <p>
-    Unlike traditional traffic systems that only monitor congestion, VayuDrishti
-    takes real-time decisions, learns continuously, and helps cities move toward
-    cleaner air without requiring new infrastructure.
-  </p>
-</section>
-
-
-<!-- Footer -->
-<footer class="footer">
-
-    <h2 class="footer-title">Meet Our Team</h2>
-<!-- TEAM -->
-<div class="team-container">
-
-        <!-- Team Member 1 -->
-        <div class="team-card slide-left">
-            <img src="../Assests/aradhya.jpeg" alt="Team Member 1">
-            <h3>Aradhya Kaul</h3>
-            <h4>Founder & MD</h4>
-            <p>
-                📧 Email: <a href="mailto:aradhyakaul540@gmail.com">aradhyakaul540@gmail.com</a>
-            </p>
-            <p>
-                💻LinkedIn: <a href="https://www.linkedin.com/in/aradhya-kaul-237459386/" target="_blank">https://www.linkedin.com/in/aradhya-kaul-237459386/</a>
-            </p>
-            <p>📱 +91 80910-77622</p>
-        </div>
-
-        <!-- Team Member 2 -->
-        <div class="team-card slide-right">
-            <img src="../Assests/rudra.jpeg" alt="Team Member 2">
-            <h3>Rudraksh Raina</h3>
-            <h4>Co-Founder & Developer</h4>
-            <p>
-                📧 Email : <a href="mailto:1819rudraksh@gmail.com">1819rudraksh@gmail.com</a>
-            </p>
-            <p>
-                💻LinkedIn: <a href="www.linkedin.com/in/rudraksh-raina-5a5535363" target="_blank">www.linkedin.com/in/rudraksh-raina-5a5535363</a>
-            </p>
-            <p>📱 +91 84930-36931</p>
-        </div>
-
+    <div class="nav-right">
+      <button onclick="scrollToId('about')">About</button>
+      <button onclick="scrollToId('team')">Team</button>
+      <button class="admin" onclick="location.href='/login'">Admin</button>
+      <button class="signup" onclick="location.href='/signup'">Signup</button>
     </div>
-<div class="copyright">
-        ©2026 VayuDrishti • Hack For Green Bharat • Powered by Pathway • All Rights Reserved
-</div>
-</footer>
-</body>
-<script>
-  function scrollToTeam() {
-    document.getElementById("team").scrollIntoView();
-  }
+  </nav>
 
-  function scrollToAbout() {
-    document.getElementById("about").scrollIntoView();
-  }
-</script>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb"></div>
+    <div class="orb"></div>
 
+    <h1>AI for Cleaner Cities</h1>
+    <p>
+      VayuDrishti is a real‑time AI traffic intelligence system that reduces
+      pollution by dynamically optimizing traffic signals using live AQI and
+      traffic density data.
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <h2>About VayuDrishti</h2>
+    <p>
+      VayuDrishti focuses on reducing emissions at traffic intersections where
+      vehicle idling produces the highest pollution. Using continuous
+      real‑time data streams, the system recalculates pollution impact and
+      adjusts signal timing autonomously.
+    </p>
+    <p>
+      Unlike traditional congestion‑based systems, VayuDrishti makes
+      pollution‑aware decisions that help cities move toward cleaner air
+      without requiring new infrastructure.
+    </p>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section">
+    <h2>Meet Our Team</h2>
+
+    <div class="team-container">
+      <div class="team-card">
+        <img src="{{ url_for('static', filename='assests/aradhya.jpeg') }}" alt="VayuDrishti Logo">
+        <h3>Aradhya Kaul</h3>
+        <h4>Founder & MD</h4>
+        <a href="mailto:aradhyakaul540@gmail.com">aradhyakaul540@gmail.com</a><br><br>
+        <a href="https://www.linkedin.com/in/aradhya-kaul-237459386/" target="_blank">Aradhya Kaul-LinkedIn</a>
+      </div>
+
+      <div class="team-card">
+        <img src="{{ url_for('static', filename='assests/rudra.jpeg') }}" alt="VayuDrishti Logo">
+        <h3>Rudraksh Raina</h3>
+        <h4>Co‑Founder & Developer</h4>
+        <a href="mailto:1819rudraksh@gmail.com">1819rudraksh@gmail.com</a><br><br>
+        <a href="https://www.linkedin.com/in/rudraksh-raina-5a5535363" target="_blank">Rudraksh Raina-LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 VayuDrishti • Hack For Green Bharat • Powered by AI • All Rights Reserved
+  </footer>
+
+  <script>
+    function scrollToId(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>

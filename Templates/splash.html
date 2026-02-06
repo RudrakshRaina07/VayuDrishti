@@ -30,11 +30,11 @@
 </head>
 <body>
 
-  <img src="../Assests/logo2.png" alt="VayuDrishti Logo" />
+<img src="{{ url_for('static', filename='assests/logo2.png') }}" alt="VayuDrishti Logo">
 
 <script>
   setTimeout(() => {
-    window.location.href = "home.html";
+    window.location.href = "/home";
   }, 2500);
 </script>
 

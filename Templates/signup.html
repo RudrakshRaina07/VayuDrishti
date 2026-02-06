@@ -36,10 +36,10 @@ body{
 }
 
 /* ===== LOGO ===== */
-.logo{
+.card img{
   width:70px;
   height:70px;
-  border-radius:16px;
+  border-radius:50%;
   object-fit:cover;
   margin-bottom:12px;
   box-shadow:0 8px 20px rgba(0,0,0,0.35);
@@ -128,27 +128,55 @@ button:hover{
 
 <div class="card">
 
-  <!-- LOGO -->
-  <img src="{{ url_for('static', filename='assests/logo2.png') }}" alt="VayuDrishti Logo">
-
   <h1>Create Account</h1>
   <div class="tag">Authorized Smart-City Personnel Registration</div>
 
-  <!-- FORM -->
-  <form onsubmit="registerUser(event)">
+  <!-- ===== FLASH MESSAGES ===== -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p style="color:#a3e635; margin-bottom:10px;">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
 
-    <input class="input" type="text" placeholder="Full Name" required>
+  <!-- ===== REAL SIGNUP FORM ===== -->
+  <form method="POST" action="{{ url_for('signup') }}">
+
+    <input class="input"
+           type="text"
+           name="name"
+           placeholder="Full Name"
+           required>
 
     <div class="row">
-      <input class="input" type="date" required>
-      <input class="input" type="tel" placeholder="Phone Number" required>
+      <input class="input"
+             type="date"
+             name="dob"
+             required>
+
+      <input class="input"
+             type="tel"
+             name="phone"
+             placeholder="Phone Number"
+             required>
     </div>
 
-    <input class="input" type="email" placeholder="Official Email ID" required>
+    <input class="input"
+           type="email"
+           name="email"
+           placeholder="Official Email ID"
+           required>
 
-    <input class="input" type="text" placeholder="Department" required>
+    <input class="input"
+           type="text"
+           name="department"
+           placeholder="Department"
+           required>
 
-    <input class="input" type="text" placeholder="Designation" required>
+    <input class="input"
+           type="text"
+           name="designation"
+           placeholder="Designation"
+           required>
 
     <!-- CHECKBOX -->
     <label class="check">
@@ -161,21 +189,12 @@ button:hover{
 
   </form>
 
-  <!-- FOOTER -->
   <div class="footer">
     Government & Traffic Authority Access Only<br>
     © 2026 VayuDrishti • Pathway Streaming AI
   </div>
 
 </div>
-
-<script>
-function registerUser(e){
-  e.preventDefault();
-  alert("Registration submitted successfully ✅");
-  window.location.href = "login.html";
-}
-</script>
 
 </body>
 </html>

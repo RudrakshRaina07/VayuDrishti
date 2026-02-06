@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | VayuDrishti</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    color: white;
+  }
+
+  /* HEADER */
+  .header {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .header h1 {
+    font-size: 26px;
+    letter-spacing: 1px;
+  }
+
+  .logout {
+    background: #ff5252;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .logout:hover {
+    transform: scale(1.05);
+    background: #ff1744;
+  }
+
+  /* CONTAINER */
+  .container {
+    padding: 40px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  }
+
+  .card h2 {
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  th, td {
+    padding: 14px;
+    text-align: center;
+  }
+
+  th {
+    background: rgba(0,0,0,0.5);
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background: rgba(255,255,255,0.05);
+  }
+
+  tr:hover {
+    background: rgba(0,255,150,0.08);
+    transition: 0.3s;
+  }
+
+  /* BUTTONS */
+  .btn {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  .approve {
+    background: #00e676;
+    color: black;
+  }
+
+  .approve:hover {
+    background: #00c853;
+    transform: scale(1.05);
+  }
+
+  .reject {
+    background: #ff5252;
+    color: white;
+  }
+
+  .reject:hover {
+    background: #ff1744;
+    transform: scale(1.05);
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.6;
+    font-size: 14px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>🌿 VayuDrishti Admin Dashboard</h1>
+  <button class="logout" onclick="window.location.href='/admin'">Logout</button>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <div class="card">
+    <h2>Pending User Approval Requests</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.dob }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.department }}</td>
+          <td>{{ user.designation }}</td>
+
+          <td>
+            <a href="/approve/{{ user.id }}">
+              <button class="btn approve">Accept</button>
+            </a>
+
+            <a href="/reject/{{ user.id }}">
+              <button class="btn reject">Reject</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="footer">
+    © 2026 VayuDrishti • Smart Clean-Air Governance System • Powered by AI
+  </div>
+</div>
+
+</body>
+</html>
