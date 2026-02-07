@@ -1,128 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SANKALP.AI | Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VayuDrishti | Secure Admin Login</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", system-ui, sans-serif;
+}
 
-    .container {
-      background: rgba(0, 0, 0, 0.55);
-      padding: 40px;
-      border-radius: 16px;
-      width: 380px;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(0,0,0,0.6);
-    }
+body{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
 
-    .logo {
-      width: 120px;
-      margin-bottom: 20px;
-    }
+/* ===== GLASS CARD ===== */
+.card{
+  width:380px;
+  padding:42px 32px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.45);
+  text-align:center;
+  color:#fff;
+  position:relative;
+}
 
-    h1 {
-      margin: 10px 0;
-      font-size: 32px;
-      letter-spacing: 1px;
-    }
+/* ===== LOGO ===== */
+.card img{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.35);
+}
 
-    .tagline {
-      font-size: 14px;
-      opacity: 0.85;
-      margin-bottom: 25px;
-    }
+/* ===== TITLE ===== */
+h1{
+  font-size:30px;
+  font-weight:600;
+  letter-spacing:.4px;
+}
 
-    .info {
-      font-size: 14px;
-      background: rgba(255,255,255,0.08);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
+.tag{
+  font-size:13px;
+  opacity:.8;
+  margin-bottom:14px;
+}
 
-    input {
-      width: 90%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-    }
+/* ===== MONKEY ===== */
+.monkey{
+  width:135px;
+  margin:6px auto 8px;
+}
 
-    button {
-      width: 95%;
-      padding: 12px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #00c853, #64dd17);
-      color: black;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.hand{
+  transition:.4s ease;
+  transform-origin:top center;
+}
 
-    button:hover {
-      opacity: 0.85;
-      transform: scale(1.02);
-    }
+/* default hands down */
+.left-hand{ transform:translateY(30px); }
+.right-hand{ transform:translateY(30px); }
 
-    .footer {
-      margin-top: 18px;
-      font-size: 11px;
-      opacity: 0.6;
-    }
-  </style>
+/* cover eyes */
+.cover .left-hand{ transform:translate(14px,-10px) rotate(-48deg); }
+.cover .right-hand{ transform:translate(-14px,-10px) rotate(48deg); }
+
+/* blinking eyes */
+.eye{
+  animation:blink 4.2s infinite;
+  transform-origin:center;
+}
+
+@keyframes blink{
+  0%,92%,100%{ transform:scaleY(1); }
+  95%{ transform:scaleY(0.08); }
+}
+
+/* ===== INPUTS ===== */
+.input{
+  width:100%;
+  padding:13px;
+  margin-top:12px;
+  border:none;
+  border-radius:10px;
+  outline:none;
+  font-size:14px;
+  background:rgba(255,255,255,0.9);
+}
+
+/* password wrapper */
+.pass-wrap{
+  position:relative;
+}
+
+.toggle{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  margin-top:18px;
+  padding:13px;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:600;
+  background:linear-gradient(90deg,#00c853,#64dd17);
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  margin-top:16px;
+  font-size:12px;
+  opacity:.75;
+  line-height:1.5;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="card">
 
-    <!-- LOGO -->
-    <img src="logo.png" alt="SANKALP.AI Logo" class="logo">
+  <h1>VayuDrishti</h1>
+  <div class="tag">AI-Powered Smart-City Traffic Intelligence</div>
 
-    <h1>SANKALP.AI</h1>
-    <p class="tagline">Innovate for a Cleaner Future</p>
+  <!-- ===== MONKEY SVG ===== -->
+  <svg id="monkey" class="monkey" viewBox="0 0 200 200">
 
-    <!-- ACCESS INFO -->
-    <div class="info">
-      🔒 <strong>Restricted Access</strong><br>
-      This system can be accessed only by<br>
-      <b>Authorized Traffic & City Admins</b>
+    <!-- face -->
+    <circle cx="100" cy="100" r="60" fill="#8d5524"/>
+    <circle cx="100" cy="110" r="40" fill="#c68642"/>
+
+    <!-- eyes -->
+    <ellipse class="eye" cx="80" cy="95" rx="6" ry="8" fill="#000"/>
+    <ellipse class="eye" cx="120" cy="95" rx="6" ry="8" fill="#000"/>
+
+    <!-- hands -->
+    <rect class="hand left-hand" x="45" y="70" width="26" height="62" rx="13" fill="#8d5524"/>
+    <rect class="hand right-hand" x="129" y="70" width="26" height="62" rx="13" fill="#8d5524"/>
+  </svg>
+
+  <!-- ===== FLASH MESSAGES ===== -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p style="color:#ff6b6b; margin-bottom:10px;">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- ===== REAL LOGIN FORM ===== -->
+  <form method="POST" action="{{ url_for('login') }}">
+
+    <input class="input"
+           type="text"
+           name="username"
+           placeholder="Admin Username"
+           required>
+
+    <div class="pass-wrap">
+      <input class="input"
+             id="password"
+             type="password"
+             name="password"
+             placeholder="Password"
+             required
+             onfocus="coverEyes()"
+             onblur="uncoverEyes()">
+      <span class="toggle" onclick="togglePassword()">👁️</span>
     </div>
 
-    <!-- LOGIN (SIMULATED) -->
-    <input type="text" placeholder="Admin Username">
-    <input type="password" placeholder="Password">
+    <button type="submit">Secure Login</button>
 
-    <button onclick="login()">Login as Admin</button>
+  </form>
 
-    <div class="footer">
-      Powered by Pathway • Hack For Green Bharat
-    </div>
-
+  <div class="footer">
+    Authorized Government & Traffic Control Access Only<br>
+    © 2026 VayuDrishti • Pathway Streaming AI
   </div>
 
-  <script>
-    function login() {
-      // Simulated authentication for demo
-      alert("Admin authenticated successfully!");
-      window.location.href = "dashboard.html";
-    }
-  </script>
+</div>
+
+<script>
+const monkey = document.getElementById("monkey");
+const pwd = document.getElementById("password");
+
+function coverEyes(){
+  monkey.classList.add("cover");
+}
+
+function uncoverEyes(){
+  if(pwd.type === "password"){
+    monkey.classList.remove("cover");
+  }
+}
+
+function togglePassword(){
+  if(pwd.type === "password"){
+    pwd.type = "text";
+    monkey.classList.remove("cover");
+  }else{
+    pwd.type = "password";
+    monkey.classList.add("cover");
+  }
+}
+</script>
 
 </body>
 </html>
