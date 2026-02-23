@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VayuDrishti | User Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      overflow-x: hidden;    
+    }
+
+    /* Background glow animation */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,255,150,0.3), transparent);
+      animation: moveGlow 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes moveGlow {
+      from { transform: translate(-200px, -150px); }
+      to { transform: translate(200px, 150px); }
+    }
+
+    .login-box {
+      position: relative;
+      width: 380px;
+      padding: 40px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 18px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+      text-align: center;
+      color: white;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 90px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    /* Eye icon */
+    .toggle-eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 18px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #00e676, #00c853);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 15px rgba(0,255,150,0.6);
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .signup-link {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .signup-link a {
+      color: #00e676;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(12px);
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(51, 255, 0, 0.15);
+        position: relative;
+        z-index: 2000;
+        width: 100%; 
+      }
+
+      .nav-right button {
+        background: transparent;
+        border: none;
+        color: yellowgreen;
+        margin-left: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      .nav-right button:hover {
+        color: #a3e635;
+      }
+
+      .home {
+        background: linear-gradient(135deg, #22c55e, #4ade80);
+        color: yellowgreen !important;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+      }
+      
+      .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .center-wrapper {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .page-wrapper {
+        min-height: calc(100vh - 70px); /* subtract navbar height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+  </style>
+</head>
+
+<body>
+      <nav>
+      <div class="nav-right">
+        <button class="home" onclick="location.href = '/home'">Home</button>
+      </div>
+    </nav>
+<div class="page-wrapper">
+  <div class="login-box">
+
+    <!-- Logo -->
+    <img src="{{ url_for('static', filename='assests/logo2.png') }}" class="logo" alt="VayuDrishti">
+
+    <h1>User Login</h1>
+    <p class="subtitle">Secure access to VayuDrishti dashboard</p>
+
+    <!-- Login Form -->
+    <form method="POST" action="/user-login">
+
+      <div class="input-group">
+        <input type="text" name="username" placeholder="Username" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <span class="toggle-eye" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="signup-link">
+      New user? <a href="/signup">Request Access</a>
+        
+    </div>
+    <div>
+      <a href="/change-password">Change Password</a>
+    </div>
+
+    <div class="footer">
+      © 2026 VayuDrishti • Smart Clean-Air Intelligence
+    </div>
+
+  </div>
+</div>
+  <script>
+    function togglePassword() {
+      const pass = document.getElementById("password");
+      pass.type = pass.type === "password" ? "text" : "password";
+    }
+  </script>
+
+</body>
+</html>

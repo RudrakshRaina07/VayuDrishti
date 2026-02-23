@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VayuDrishti | User Registration</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", system-ui, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  padding:20px;
+}
+
+/* ===== CARD ===== */
+.card{
+  width:420px;
+  max-width:100%;
+  padding:40px 32px;
+  border-radius:22px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.45);
+  text-align:center;
+  color:#fff;
+}
+
+/* ===== LOGO ===== */
+.card img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ===== TITLE ===== */
+h1{
+  font-size:28px;
+  font-weight:600;
+}
+
+.tag{
+  font-size:13px;
+  opacity:.8;
+  margin-bottom:22px;
+}
+
+/* ===== INPUTS ===== */
+.input{
+  width:100%;
+  padding:13px 14px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+  background:rgba(255,255,255,0.92);
+}
+
+/* ===== GRID FOR DOB/PHONE ===== */
+.row{
+  display:flex;
+  gap:10px;
+}
+
+.row .input{
+  margin-top:12px;
+}
+
+/* ===== CHECKBOX ===== */
+.check{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:16px;
+  font-size:13px;
+  text-align:left;
+  opacity:.9;
+}
+
+.check input{
+  margin-top:3px;
+  transform:scale(1.1);
+}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:600;
+  background:linear-gradient(90deg,#00c853,#64dd17);
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  opacity:.75;
+  line-height:1.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h1>Create Account</h1>
+  <div class="tag">Authorized Smart-City Personnel Registration</div>
+
+  <!-- ===== FLASH MESSAGES ===== -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p style="color:#a3e635; margin-bottom:10px;">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- ===== REAL SIGNUP FORM ===== -->
+  <form method="POST" action="{{ url_for('signup') }}">
+
+    <input class="input"
+           type="text"
+           name="name"
+           placeholder="Full Name"
+           required>
+
+    <div class="row">
+      <input class="input"
+             type="date"
+             name="dob"
+             required>
+
+      <input class="input"
+             type="tel"
+             name="phone"
+             placeholder="Phone Number"
+             required>
+    </div>
+
+    <input class="input"
+           type="email"
+           name="email"
+           placeholder="Official Email ID"
+           required>
+
+    <input class="input"
+           type="text"
+           name="department"
+           placeholder="Department"
+           required>
+
+    <input class="input"
+           type="text"
+           name="designation"
+           placeholder="Designation"
+           required>
+
+    <!-- CHECKBOX -->
+    <label class="check">
+      <input type="checkbox" required>
+      I hereby confirm that the above details are true and I am an
+      authorized personnel for accessing the VayuDrishti Smart-City system.
+    </label>
+
+    <button type="submit">Submit Registration</button>
+
+  </form>
+
+  <div class="footer">
+    Government & Traffic Authority Access Only<br>
+    © 2026 VayuDrishti • Pathway Streaming AI
+  </div>
+
+</div>
+
+</body>
+</html>

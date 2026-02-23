@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VayuDrishti • Smart City AI Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+    --bg1: #020617;
+    --bg2: #0f172a;
+    --accent: #38bdf8;
+    --green: #22c55e;
+    --danger: #ef4444;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, var(--bg2), var(--bg1));
+    color: white;
+}
+
+/* ================= HEADER ================= */
+header {
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+select {
+    background: var(--bg1);
+    color: white;
+    border: 1px solid var(--accent);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.logout {
+    background: var(--danger);
+    border: none;
+    padding: 8px 14px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* ================= GRID ================= */
+.container {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+/* ================= CARD ================= */
+.card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0,0,0,0.45);
+    transition: transform 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card h3 {
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.value {
+    margin-top: 10px;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--green);
+}
+
+/* ================= CHART ================= */
+.chart-box {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/* ================= FOOT ================= */
+.footer-note {
+    text-align: center;
+    opacity: 0.6;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <div class="logo">🌍 VayuDrishti • Smart City AI</div>
+
+    <div class="controls">
+        <select id="city">
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Shimla">Shimla</option>
+        </select>
+
+        <select id="junction"></select>
+
+        <a href="/user-logout">
+            <button class="logout">Logout</button>
+        </a>
+    </div>
+</header>
+
+<!-- ================= DASHBOARD ================= -->
+<div class="container">
+
+    <div class="card">
+        <h3>Live AQI</h3>
+        <div id="aqi" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Predicted AQI (LSTM)</h3>
+        <div id="future" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Traffic Density</h3>
+        <div id="density" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Green Signal Time</h3>
+        <div id="green" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Pollution Cost</h3>
+        <div id="pollution" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>System Efficiency</h3>
+        <div id="efficiency" class="value">--%</div>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="aqiChart"></canvas>
+    </div>
+
+</div>
+
+<div class="footer-note">
+    Real-time AI • LSTM Prediction • City & Junction Aware
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* ---------- CITY → JUNCTION MAP ---------- */
+const cityJunctions = {
+    Delhi: ["A", "B", "C"],
+    Mumbai: ["D", "E", "F"],
+    Shimla: ["G", "H"]
+};
+
+const citySelect = document.getElementById("city");
+const junctionSelect = document.getElementById("junction");
+
+/* ---------- POPULATE JUNCTIONS ---------- */
+function updateJunctions() {
+    junctionSelect.innerHTML = "";
+    cityJunctions[citySelect.value].forEach(j => {
+        const opt = document.createElement("option");
+        opt.value = j;
+        opt.textContent = "Junction " + j;
+        junctionSelect.appendChild(opt);
+    });
+}
+
+/* ---------- CHART ---------- */
+const chart = new Chart(
+    document.getElementById("aqiChart"),
+    {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Live AQI",
+                data: [],
+                borderWidth: 3,
+                tension: 0.4,
+                borderColor: "#38bdf8"
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: "white" } }
+            },
+            scales: {
+                x: { ticks: { color: "white" } },
+                y: { ticks: { color: "white" } }
+            }
+        }
+    }
+);
+
+/* ---------- LOAD DATA ---------- */
+async function loadData(reset=false) {
+    const city = citySelect.value;
+    const junction = junctionSelect.value;
+
+    try {
+        const res = await fetch(`/api/live?city=${city}&junction=${junction}`);
+        const data = await res.json();
+
+        if (data.error) {
+            console.warn("API:", data.error);
+            return;
+        }
+
+        document.getElementById("aqi").innerText = data.aqi;
+        document.getElementById("future").innerText =
+            data.future_aqi !== null && data.future_aqi !== undefined
+                ? data.future_aqi
+                : "--";
+
+        document.getElementById("density").innerText = data.density;
+        document.getElementById("green").innerText = data.green_time + "s";
+        document.getElementById("pollution").innerText = data.pollution_cost;
+        document.getElementById("efficiency").innerText =
+            Math.round(data.efficiency) + "%";
+
+        if (reset) {
+            chart.data.labels = [];
+            chart.data.datasets[0].data = [];
+        }
+
+        chart.data.labels.push(new Date().toLocaleTimeString());
+        chart.data.datasets[0].data.push(data.aqi);
+
+        if (chart.data.labels.length > 20) {
+            chart.data.labels.shift();
+            chart.data.datasets[0].data.shift();
+        }
+
+        chart.update();
+
+    } catch (err) {
+        console.error("Dashboard error:", err);
+    }
+}
+
+/* ---------- EVENTS ---------- */
+citySelect.addEventListener("change", () => {
+    updateJunctions();
+    loadData(true);
+});
+junctionSelect.addEventListener("change", () => loadData(true));
+
+updateJunctions();
+loadData();
+setInterval(loadData, 3000);
+</script>
+
+</body>
+</html>

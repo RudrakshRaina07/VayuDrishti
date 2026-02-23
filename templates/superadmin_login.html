@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VayuDrishti • Super Admin Login</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* CARD */
+.login-box {
+    background: rgba(255,255,255,0.06);
+    padding: 40px;
+    width: 360px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(12px);
+    text-align: center;
+}
+
+/* TITLE */
+.login-box h1 {
+    margin-bottom: 10px;
+    color: #38bdf8;
+}
+
+.login-box p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 15px;
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #020617;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(56,189,248,0.6);
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h1>🛡 Super Admin</h1>
+    <p>System Control & Analytics Access</p>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Super Admin Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="footer">
+        VayuDrishti • Smart City AI Platform
+    </div>
+</div>
+
+</body>
+</html>

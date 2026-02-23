@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | VayuDrishti</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  color: white;
+}
+
+.header {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  background: #ff5252;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.container {
+  padding: 40px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+}
+
+th {
+  background: rgba(0,0,0,0.5);
+}
+
+tr:nth-child(even) {
+  background: rgba(255,255,255,0.05);
+}
+
+.btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.approve {
+  background: #00e676;
+  color: black;
+}
+
+.reject {
+  background: #ff5252;
+  color: white;
+}
+
+.delete {
+  background: #ff1744;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🌿 VayuDrishti Admin Dashboard</h1>
+  <button class="logout" onclick="location.href='/login'">Logout</button>
+</div>
+
+<div class="container">
+
+  <!-- ================= PENDING USERS ================= -->
+  <div class="card">
+    <h2>⏳ Pending User Requests</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in pending_users %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.department }}</td>
+          <td>{{ user.designation }}</td>
+          <td>
+            <a href="/approve/{{ user.id }}">
+              <button class="btn approve">Approve</button>
+            </a>
+            <a href="/reject/{{ user.id }}">
+              <button class="btn reject">Reject</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= APPROVED USERS ================= -->
+  <div class="card">
+    <h2>✅ Approved Users</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in approved_users %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.department }}</td>
+          <td>{{ user.designation }}</td>
+          
+          <td>
+  <a href="/reset-password/{{ user.id }}"
+     onclick="return confirm('Reset password for this user?')">
+    <button class="btn approve">Reset Password</button>
+  </a>
+
+  <a href="/delete-user/{{ user.id }}"
+     onclick="return confirm('Delete this user permanently?')">
+    <button class="btn delete">Delete</button>
+  </a>
+</td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
