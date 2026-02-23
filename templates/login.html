@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VayuDrishti | Secure Office Login</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        margin: 0;
+      }
+
+      /* ===== GLASS CARD ===== */
+      .card {
+        width: 380px;
+        padding: 42px 32px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+        text-align: center;
+        color: #fff;
+        position: relative;
+      }
+
+      /* ===== LOGO ===== */
+      .card img {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ===== TITLE ===== */
+      h1 {
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+
+      .tag {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-bottom: 14px;
+      }
+
+      /* ===== MONKEY ===== */
+      .monkey {
+        width: 135px;
+        margin: 6px auto 8px;
+      }
+
+      .hand {
+        transition: 0.4s ease;
+        transform-origin: top center;
+      }
+
+      /* default hands down */
+      .left-hand {
+        transform: translateY(30px);
+      }
+      .right-hand {
+        transform: translateY(30px);
+      }
+
+      /* cover eyes */
+      .cover .left-hand {
+        transform: translate(14px, -10px) rotate(-48deg);
+      }
+      .cover .right-hand {
+        transform: translate(-14px, -10px) rotate(48deg);
+      }
+
+      /* blinking eyes */
+      .eye {
+        animation: blink 4.2s infinite;
+        transform-origin: center;
+      }
+
+      @keyframes blink {
+        0%,
+        92%,
+        100% {
+          transform: scaleY(1);
+        }
+        95% {
+          transform: scaleY(0.08);
+        }
+      }
+
+      /* ===== INPUTS ===== */
+      .input {
+        width: 100%;
+        padding: 13px;
+        margin-top: 12px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      /* password wrapper */
+      .pass-wrap {
+        position: relative;
+      }
+
+      .toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      /* ===== BUTTON ===== */
+      button {
+        width: 100%;
+        margin-top: 18px;
+        padding: 13px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        background: linear-gradient(90deg, #00c853, #64dd17);
+        cursor: pointer;
+        transition: 0.25s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        margin-top: 16px;
+        font-size: 12px;
+        opacity: 0.75;
+        line-height: 1.5;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(12px);
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(51, 255, 0, 0.15);
+         position: relative;
+        z-index: 2000;
+        width: 100%;
+      }
+
+      .nav-right button {
+        background: transparent;
+        border: none;
+        color: yellowgreen;
+        margin-left: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      .nav-right button:hover {
+        color: #a3e635;
+      }
+
+      .home {
+        background: linear-gradient(135deg, #22c55e, #4ade80);
+        color: yellowgreen !important;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+      }
+
+      .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .center-wrapper {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-right">
+        <button class="home" onclick="location.href = '/home'">Home</button>
+      </div>
+    </nav>
+    <div class="center-wrapper">
+    <div class="card">
+      <h1>VayuDrishti</h1>
+      <div class="tag">AI-Powered Smart-City Traffic Intelligence</div>
+
+      <!-- ===== MONKEY SVG ===== -->
+      <svg id="monkey" class="monkey" viewBox="0 0 200 200">
+        <!-- face -->
+        <circle cx="100" cy="100" r="60" fill="#8d5524" />
+        <circle cx="100" cy="110" r="40" fill="#c68642" />
+
+        <!-- eyes -->
+        <ellipse class="eye" cx="80" cy="95" rx="6" ry="8" fill="#000" />
+        <ellipse class="eye" cx="120" cy="95" rx="6" ry="8" fill="#000" />
+
+        <!-- hands -->
+        <rect
+          class="hand left-hand"
+          x="45"
+          y="70"
+          width="26"
+          height="62"
+          rx="13"
+          fill="#8d5524"
+        />
+        <rect
+          class="hand right-hand"
+          x="129"
+          y="70"
+          width="26"
+          height="62"
+          rx="13"
+          fill="#8d5524"
+        />
+      </svg>
+
+      <!-- ===== FLASH MESSAGES ===== -->
+      {% with messages = get_flashed_messages(with_categories=true) %} {% for
+      category, message in messages %}
+      <p style="color: #ff6b6b; margin-bottom: 10px">{{ message }}</p>
+      {% endfor %} {% endwith %}
+
+      <!-- ===== REAL LOGIN FORM ===== -->
+      <form method="POST" action="{{ url_for('login') }}">
+        <input
+          class="input"
+          type="text"
+          name="username"
+          placeholder=" Username"
+          required
+        />
+
+        <div class="pass-wrap">
+          <input
+            class="input"
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            onfocus="coverEyes()"
+            onblur="uncoverEyes()"
+          />
+          <span class="toggle" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button type="submit">Secure Login</button>
+      </form>
+
+      <div class="footer">
+        Authorized Government & Traffic Control Access Only<br />
+        © 2026 VayuDrishti • Pathway Streaming AI
+      </div>
+    </div>
+    </div>
+
+    <script>
+      const monkey = document.getElementById("monkey");
+      const pwd = document.getElementById("password");
+
+      function coverEyes() {
+        monkey.classList.add("cover");
+      }
+
+      function uncoverEyes() {
+        if (pwd.type === "password") {
+          monkey.classList.remove("cover");
+        }
+      }
+
+      function togglePassword() {
+        if (pwd.type === "password") {
+          pwd.type = "text";
+          monkey.classList.remove("cover");
+        } else {
+          pwd.type = "password";
+          monkey.classList.add("cover");
+        }
+      }
+    </script>
+  </body>
+</html>

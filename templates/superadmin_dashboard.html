@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>VayuDrishti • Super Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: white;
+}
+
+header {
+    padding: 18px 30px;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.logout {
+    background: #ef4444;
+    border: none;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.container {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #38bdf8;
+}
+
+.value {
+    font-size: 34px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+select {
+    background: #020617;
+    color: white;
+    border: 1px solid #38bdf8;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: rgba(56,189,248,0.15);
+}
+
+tr:nth-child(even) {
+    background: rgba(255,255,255,0.03);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">👑 VayuDrishti • Super Admin Control Center</div>
+    <a href="/superadmin-logout"><button class="logout">Logout</button></a>
+</header>
+
+<div class="container">
+
+    <!-- KPIs -->
+    <div class="card">
+        <h3>Total Users</h3>
+        <div id="totalUsers" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Pending Requests</h3>
+        <div id="pendingUsers" class="value">--</div>
+    </div>
+
+    <div class="card">
+        <h3>Average AQI</h3>
+        <div id="avgAqi" class="value">--</div>
+    </div>
+
+    <!-- Traffic Trend -->
+    <div class="card full">
+        <h3>📈 Traffic Trend</h3>
+        <canvas id="trafficChart"></canvas>
+    </div>
+
+    <!-- City AQI Heatmap -->
+    <div class="card full">
+        <h3>🌆 City AQI Heatmap</h3>
+        <div id="heatmap"></div>
+    </div>
+
+    <!-- Auto Traffic Control -->
+    <div class="card full">
+        <h3>🚦 Auto Traffic Light Control</h3>
+
+        <select id="autoCity">
+            <option>Delhi</option>
+            <option>Mumbai</option>
+        </select>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Junction</th>
+                    <th>Traffic</th>
+                    <th>Mode</th>
+                    <th>Green Time</th>
+                </tr>
+            </thead>
+            <tbody id="autoTable"></tbody>
+        </table>
+
+        <button
+            style="margin-top:15px;padding:10px 18px;background:#dc2626;border:none;color:white;border-radius:8px;"
+            onclick="triggerEmergency()"
+        >
+            🚨 EMERGENCY OVERRIDE
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+/* ================= TRAFFIC TREND ================= */
+
+const trafficCtx = document.getElementById("trafficChart");
+
+const trafficChart = new Chart(trafficCtx, {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Traffic Density",
+            data: [],
+            borderWidth: 3,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+/* ================= LOAD ANALYTICS ================= */
+
+async function loadAnalytics() {
+    const res = await fetch("/api/admin/analytics");
+    const data = await res.json();
+
+    document.getElementById("totalUsers").innerText = data.total_users || 0;
+    document.getElementById("pendingUsers").innerText = data.pending_users || 0;
+
+    const avgEl = document.getElementById("avgAqi");
+
+    if (data.city_aqi && data.city_aqi.length > 0) {
+
+        const validAqi = data.city_aqi
+            .map(x => x.avg_aqi)
+            .filter(x => x !== null && !isNaN(x));
+
+        if (validAqi.length > 0) {
+            const avg = Math.round(
+                validAqi.reduce((a,b)=>a+b,0) / validAqi.length
+            );
+
+            avgEl.innerText = avg;
+
+            if (avg > 200) avgEl.style.color = "#ef4444";
+            else if (avg > 120) avgEl.style.color = "#facc15";
+            else avgEl.style.color = "#22c55e";
+
+        } else {
+            avgEl.innerText = "--";
+            avgEl.style.color = "white";
+        }
+
+    } else {
+        avgEl.innerText = "--";
+        avgEl.style.color = "white";
+    }
+
+    trafficChart.data.labels = data.traffic_trend.map(x=>x.created_at);
+    trafficChart.data.datasets[0].data = data.traffic_trend.map(x=>x.traffic);
+    trafficChart.update();
+}
+
+/* ================= LOAD HEATMAP ================= */
+
+async function loadHeatmap() {
+    const res = await fetch("/api/superadmin/heatmap");
+    const data = await res.json();
+
+    let html = "";
+
+    for (const city in data.cities) {
+        const aqi = data.cities[city];
+
+        const color =
+            aqi > 200 ? "#ef4444" :
+            aqi > 120 ? "#facc15" :
+            "#22c55e";
+
+        html += `<p style="color:${color}">${city}: AQI ${aqi}</p>`;
+    }
+
+    document.getElementById("heatmap").innerHTML = html;
+}
+
+/* ================= AUTO TRAFFIC ================= */
+
+async function loadAutoControl() {
+    const city = document.getElementById("autoCity").value;
+    const res = await fetch(`/api/traffic-control?city=${city}`);
+    const data = await res.json();
+
+    let rows = "";
+
+    for (const j in data.junctions) {
+        const v = data.junctions[j];
+
+        const color =
+            v.mode === "EMERGENCY" ? "#ef4444" :
+            v.mode === "OPTIMIZED" ? "#facc15" :
+            "#22c55e";
+
+        rows += `
+            <tr>
+                <td>${j}</td>
+                <td>${v.density}</td>
+                <td style="color:${color}">${v.mode}</td>
+                <td>${v.green_time}s</td>
+            </tr>
+        `;
+    }
+
+    document.getElementById("autoTable").innerHTML = rows;
+}
+
+document.getElementById("autoCity").addEventListener("change", loadAutoControl);
+
+/* ================= EMERGENCY ================= */
+
+async function triggerEmergency() {
+    const city = document.getElementById("autoCity").value;
+    const junction = prompt("Enter Junction (A/B/C/D)");
+
+    if (!junction) return;
+
+    await fetch("/api/emergency-override", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city, junction })
+    });
+
+    alert("🚨 Emergency mode activated!");
+}
+
+/* ================= SINGLE REFRESH LOOP ================= */
+
+function refreshAll() {
+    loadAnalytics();
+    loadHeatmap();
+    loadAutoControl();
+}
+
+refreshAll();
+setInterval(refreshAll, 5000);
+
+</script>
+
+</body>
+</html>
